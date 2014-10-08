@@ -2,6 +2,6 @@ var app = angular.module('demo', ['angularCurrency']);
 
 app.controller('demoCtrl', ['$scope',
 	function($scope) {
-		$scope.test = "HANNA";
+		$scope.val = 1000;
 	}
 ])

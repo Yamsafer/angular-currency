@@ -43,15 +43,15 @@
 	
 	<script type="text/ng-template" id="currency-options.html">
 
-	<ul class="list-unstyled">
-		<li ng-repeat="item in list" >
-			<a ng-click="setCurrency(item)" href="" class="{{ item.icon }}"> {{ item.name }} - {{item.code}} </a>
-		</li>
-	</ul>
+		<ul class="list-unstyled">
+			<li ng-repeat="item in list" >
+				<a ng-click="setCurrency(item)" href="" class="{{ item.icon }}"> {{ item.name }} - {{item.code}} </a>
+			</li>
+		</ul>
 
 		<select 
 		class="form-control" ng-model="selectedCurrency" ng-change="setCurrency(selectedCurrency)" 
-		ng-options="currency.name + ' - ' + currency.code for currency in list">	
+		ng-options="value.name + ' - ' + key for (key,value) in list">	
 	    </select>
 	</script>
 
