@@ -1,0 +1,29 @@
+{
+  "generator-angularjs-library": {
+    "props": {
+      "author": {
+        "name": "Faris Abusada",
+        "email": "faris.a@yamsafer.me"
+      },
+      "libraryName": {
+        "original": "angular-currency",
+        "camelized": "angularCurrency",
+        "dasherized": "angular-currency",
+        "slugified": "angular-currency",
+        "parts": [
+          "angular",
+          "currency"
+        ]
+      },
+      "includeModuleDirectives": true,
+      "includeModuleFilters": true,
+      "includeModuleServices": true,
+      "includeAngularModuleResource": false,
+      "includeAngularModuleCookies": true,
+      "includeAngularModuleSanitize": true,
+      "librarySrcDirectory": "src/angularCurrency",
+      "libraryUnitTestDirectory": "test/unit/angularCurrency",
+      "libraryUnitE2eDirectory": "test/e2e/angularCurrency"
+    }
+  }
+}
