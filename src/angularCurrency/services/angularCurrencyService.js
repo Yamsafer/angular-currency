@@ -1,5 +1,5 @@
- angular.module('angularCurrency.services', []).factory('CurrencyService', ["$http", "$q",
- 	function($http, $q) {
+ angular.module('angularCurrency.services', []).factory('CurrencyService', ["$log","$http", "$q",
+ 	function($log,$http, $q) {
 
  		// The public party of the service
  		currencyService = {};
@@ -106,7 +106,13 @@
 
  		currencyService.fetchRates = function(currencyCode) {
  			var deferred = $q.defer();
- 			var url = "https://yamsafer.me/currencies/show/" + currencyCode
+
+ 			var url = "https://yamsafer.me/currencies/show";
+
+ 			currencyCode ? (url += "/" + currencyCode) : (url = url);
+
+ 			console.log(url);
+ 		
  			$http({
  				method: 'GET',
  				url: url

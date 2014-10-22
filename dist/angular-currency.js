@@ -30,27 +30,35 @@ angular.module('angularCurrency.directives', []).directive('currancySelect', ['$
 			link: function(scope, iElement, iAttrs) {},
 			controller: function($scope) {
 
+
+
 				// List of curruncies
 				$scope.list = CurrencyService.list;
 
-				$scope.selectedCurrency = $scope.list['USD'];
-
-				// Set the currency rate value inside the service
 				$scope.setCurrency = function(currency) {
-					console.log(currency);
 					CurrencyService.fetchRates(currency.code).then(function(rate) {
-						$scope.selectedCurrency = currency;
+						$scope.selectedCurrency = $scope.list[rate.code];
 						$cookieStore.put('currencyCode', currency.code);
 					});
 				}
 
+				// Check if cookie has any value
 				var codeFromCookie = $cookieStore.get('currencyCode');
-				console.log("codeFromCookie",codeFromCookie);
 				if (codeFromCookie) {
+
 					$scope.selectedCurrency = $scope.list[codeFromCookie];
+					console.log($scope.selectedCurrency);
+					$scope.setCurrency($scope.selectedCurrency);
+				} else {
+					// Get default value
+					CurrencyService.fetchRates().then(function(rate) {
+						$scope.selectedCurrency = $scope.list[rate.code];
+						$cookieStore.put('currencyCode', rate.code);
+					});
 				}
 
-				$scope.setCurrency($scope.selectedCurrency);
+
+
 			},
 			// Template is optional for the user to choose whatever he wants
 			templateUrl: 'currency-options.html'
@@ -71,8 +79,8 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
 	};
 
 });
- angular.module('angularCurrency.services', []).factory('CurrencyService', ["$http", "$q",
- 	function($http, $q) {
+ angular.module('angularCurrency.services', []).factory('CurrencyService', ["$log","$http", "$q",
+ 	function($log,$http, $q) {
 
  		// The public party of the service
  		currencyService = {};
@@ -162,7 +170,7 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  				code: "GBP",
  				icon: "flag-gb"
  			}
- 		}
+ 		};
  	
 
  		currencyService.addToList = function(obj) {
@@ -179,7 +187,13 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
 
  		currencyService.fetchRates = function(currencyCode) {
  			var deferred = $q.defer();
- 			var url = "https://yamsafer.me/currencies/show/" + currencyCode
+
+ 			var url = "https://yamsafer.me/currencies/show";
+
+ 			currencyCode ? (url += "/" + currencyCode) : (url = url);
+
+ 			console.log(url);
+ 		
  			$http({
  				method: 'GET',
  				url: url

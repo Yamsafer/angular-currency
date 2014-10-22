@@ -5,27 +5,35 @@ angular.module('angularCurrency.directives', []).directive('currancySelect', ['$
 			link: function(scope, iElement, iAttrs) {},
 			controller: function($scope) {
 
+
+
 				// List of curruncies
 				$scope.list = CurrencyService.list;
 
-				$scope.selectedCurrency = $scope.list['USD'];
-
-				// Set the currency rate value inside the service
 				$scope.setCurrency = function(currency) {
-					console.log(currency);
 					CurrencyService.fetchRates(currency.code).then(function(rate) {
-						$scope.selectedCurrency = currency;
+						$scope.selectedCurrency = $scope.list[rate.code];
 						$cookieStore.put('currencyCode', currency.code);
 					});
 				}
 
+				// Check if cookie has any value
 				var codeFromCookie = $cookieStore.get('currencyCode');
-				console.log("codeFromCookie",codeFromCookie);
 				if (codeFromCookie) {
+
 					$scope.selectedCurrency = $scope.list[codeFromCookie];
+					console.log($scope.selectedCurrency);
+					$scope.setCurrency($scope.selectedCurrency);
+				} else {
+					// Get default value
+					CurrencyService.fetchRates().then(function(rate) {
+						$scope.selectedCurrency = $scope.list[rate.code];
+						$cookieStore.put('currencyCode', rate.code);
+					});
 				}
 
-				$scope.setCurrency($scope.selectedCurrency);
+
+
 			},
 			// Template is optional for the user to choose whatever he wants
 			templateUrl: 'currency-options.html'
