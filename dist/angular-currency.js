@@ -84,7 +84,7 @@ angular.module('angularCurrency.directives', []).directive('currancySelect', ['C
 		};
 	}
 ])
-angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filter, $sce, CurrencyService) {
+angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filter, $sce,$rootScope, CurrencyService) {
 	return function(input) {
 		if (CurrencyService.getRate()) {
 			var rate = CurrencyService.getRate(),
