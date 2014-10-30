@@ -6,7 +6,6 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
 				newValue = input * value,
 				symbol = " <span class='currency-symbol' >" + rate.code + "</span> ";
 
-			$rootScope.$broadcast('currency:changed');
 
 			return $filter('currency')(newValue, symbol);
 		} else {

@@ -28,7 +28,7 @@ angular.module('angularCurrency.directives', []).directive('currancySelect', ['C
 		return {
 			restrict: 'A',
 			link: function(scope, iElement, iAttrs) {},
-			controller: function($scope) {
+			controller: function($scope,$rootScope) {
 
 
 
@@ -39,6 +39,8 @@ angular.module('angularCurrency.directives', []).directive('currancySelect', ['C
 					CurrencyService.fetchRates(currency.code).then(function(rate) {
 						$scope.selectedCurrency = $scope.list[rate.code];
 						setCookie('currencyCode', currency.code);
+						$rootScope.$broadcast('currency:changed');
+
 					});
 				}
 
@@ -92,7 +94,6 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
 				newValue = input * value,
 				symbol = " <span class='currency-symbol' >" + rate.code + "</span> ";
 
-			$rootScope.$broadcast('currency:changed');
 
 			return $filter('currency')(newValue, symbol);
 		} else {
