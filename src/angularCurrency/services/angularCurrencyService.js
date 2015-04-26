@@ -91,7 +91,6 @@
  			}
  		};
  	
-
  		currencyService.addToList = function(obj) {
  			currencyService.list.push(obj);
  		}
@@ -107,7 +106,7 @@
  		currencyService.fetchRates = function(currencyCode) {
  			var deferred = $q.defer();
 
- 			var url = "https://yamsafer.me/currencies/show";
+ 			var url = Yamsafer.baseUrl + "currencies/show";
 
  			currencyCode ? (url += "/" + currencyCode) : (url = url);
 

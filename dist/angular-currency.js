@@ -195,7 +195,6 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  			}
  		};
  	
-
  		currencyService.addToList = function(obj) {
  			currencyService.list.push(obj);
  		}
@@ -211,7 +210,7 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  		currencyService.fetchRates = function(currencyCode) {
  			var deferred = $q.defer();
 
- 			var url = "https://yamsafer.me/currencies/show";
+ 			var url = Yamsafer.baseUrl + "currencies/show";
 
  			currencyCode ? (url += "/" + currencyCode) : (url = url);
 
