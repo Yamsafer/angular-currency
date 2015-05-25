@@ -180,7 +180,7 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  			},
  			MAD: {
  				name: "Morocco Dirham",
- 				code: " MAD",
+ 				code: "MAD",
  				icon: "flag-ma",
  			},
  			EUR: {
@@ -213,8 +213,6 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  			var url = Yamsafer.baseUrl + "currencies/show";
 
  			currencyCode ? (url += "/" + currencyCode) : (url = url);
-
- 			console.log(url);
  		
  			$http({
  				method: 'GET',
@@ -235,7 +233,18 @@ angular.module('angularCurrency.filters', []).filter('Ycurrency', function($filt
  			return rate;
  		}
 
+ 		currencyService.convertToNewCurrency = function(value, rate) {
+ 			var newValue = value * rate ;
+ 			return newValue.toFixed(2);
+ 		};
+
+ 		currencyService.convertToUSD = function(value, rate) {
+ 			var usdValue = value/rate;
+ 			return usdValue.toFixed(2);
+ 		};
+
  		return currencyService;
  	}
  ])
+ 
 }());
