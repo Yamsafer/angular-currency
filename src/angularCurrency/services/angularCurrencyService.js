@@ -76,7 +76,7 @@
  			},
  			MAD: {
  				name: "Morocco Dirham",
- 				code: " MAD",
+ 				code: "MAD",
  				icon: "flag-ma",
  			},
  			EUR: {
@@ -109,8 +109,6 @@
  			var url = Yamsafer.baseUrl + "currencies/show";
 
  			currencyCode ? (url += "/" + currencyCode) : (url = url);
-
- 			console.log(url);
  		
  			$http({
  				method: 'GET',
@@ -131,6 +129,17 @@
  			return rate;
  		}
 
+ 		currencyService.convertToNewCurrency = function(value, rate) {
+ 			var newValue = value * rate ;
+ 			return newValue.toFixed(2);
+ 		};
+
+ 		currencyService.convertToUSD = function(value, rate) {
+ 			var usdValue = value/rate;
+ 			return usdValue.toFixed(2);
+ 		};
+
  		return currencyService;
  	}
  ])
+ 
